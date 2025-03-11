@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/main/ProtectedRoute";
 import BusinessDashboard from "./pages/businessClient/BusinessDashboard";
@@ -9,17 +14,22 @@ import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
 
 const App = () => {
+
   return (
     <Router>
-      <Navbar />
       <MainLayout />
     </Router>
   );
 };
 
 const MainLayout = () => {
+  const location = useLocation();
+
+  const shouldHideNavbar = location.pathname.startsWith("/sign");
+
   return (
-    <main className=" bg-gray-300 min-h-screen">
+    <div className=" bg-gray-300 min-h-screen">
+      {!shouldHideNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
@@ -43,7 +53,7 @@ const MainLayout = () => {
           exact
         />
       </Routes>
-    </main>
+    </div>
   );
 };
 

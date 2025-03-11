@@ -1,10 +1,10 @@
 import React from "react";
+import FeaturesSection from "../components/home/FeaturesSection";
 
 const Home = () => {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
-      <section className="relative text-white text-center flex items-center justify-center py-16 px-6 sm:px-12 h-[500px]">
-        {/* Video Background */}
+      <section className="relative text-white text-center flex h-[500px] lg:h-auto items-center justify-center px-2 lg:py-16 lg:px-6 sm:px-12 overflow-hidden">
         <video
           className="absolute top-0 left-0 w-full h-full object-cover opacity-60"
           autoPlay
@@ -15,71 +15,35 @@ const Home = () => {
           Your browser does not support the video tag.
         </video>
 
-        {/* Content */}
-        <div className="relative z-10 bg-gray-700 opacity-90 rounded-lg max-w-[80%] p-5 pb-9">
-          <h2 className="text-4xl font-extrabold mb-4 text-white drop-shadow-lg">
+        <div className="relative z-10 bg-gray-700 opacity-90 rounded-lg lg:max-w-[80%] p-5 pb-9">
+          <h2 className="text-xl sm:text-2xl md:text-4xl font-extrabold mb-4 text-white drop-shadow-lg">
             Революция в осветителния дизайн
           </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto drop-shadow-md">
+          <p className="text-sm sm:text-md md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto drop-shadow-md">
             Открийте нашата иновативна платформа, предназначена за архитекти,
             инженери, интериорни дизайнери и крайни потребители, за лесно
             намиране на перфектните осветителни решения с AI помощ за визуално
             търсене и персонализирани препоръки.
           </p>
-          <a
-            href="#catalog"
-            className="bg-white text-gray-700  py-2 px-4 rounded-lg font-semibold"
-          >
-            Изследвайте каталога
-          </a>
+          <button className="bg-white text-gray-700 hover:scale-105 py-2 px-4 rounded-lg font-semibold">
+            Научете повече
+          </button>
         </div>
       </section>
-      <section id="features" className="bg-gray-100 py-16 px-6 sm:px-12">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h4 className="text-xl font-bold text-primary drop-shadow-md mb-4">
-                AI Търсене
-              </h4>
-              <p className="text-gray-600 drop-shadow-sm">
-                Визуално търсене, задвижвано от AI, което помага лесно да
-                откриете перфектните осветителни тела за вашите нужди.
-              </p>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h4 className="text-xl font-bold text-primary drop-shadow-md mb-4">
-                Персонализирани Препоръки
-              </h4>
-              <p className="text-gray-600 drop-shadow-sm">
-                Персонализирани препоръки за осветление, които са съобразени с
-                вашия проект и предпочитания, за да осигурят най-доброто
-                решение.
-              </p>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h4 className="text-xl font-bold text-primary drop-shadow-md mb-4">
-                Богат Каталог
-              </h4>
-              <p className="text-gray-600 drop-shadow-sm">
-                Достъп до разнообразен и богат каталог от осветителни продукти
-                от водещи марки, подходящи за всякакъв стил и тип проект.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeaturesSection />
 
       {/* Services Section */}
-      <section id="services" className="py-16 px-6 sm:px-12 bg-white">
+      <section id="services" className="py-12 px-6 sm:px-10 bg-white">
         <div className="max-w-7xl mx-auto text-center">
-          <h3 className="text-3xl font-semibold text-gray-900 mb-6">
+          <h3 className="xl:text-3xl font-semibold text-gray-900 mb-6">
             Нашите услуги
           </h3>
           <p className="text-lg text-gray-600 leading-relaxed mb-12">
-            Освен че предлагаме най-добрите осветителни решения, ние осигуряваме
-            професионални услуги, които да помогнат да реализирате вашето
-            виждане. От персонализирани консултации за дизайн до инсталация и
-            поддръжка, ние предлагаме пълен набор от услуги за всеки проект.
+            Предлагаме най-съвременни осветителни решения и предоставяме
+            професионални услуги, които ще ви помогнат да осъществите вашите
+            идеи. От индивидуални консултации за дизайн до инсталация и
+            последваща поддръжка, осигуряваме цялостно обслужване за всеки етап
+            от проекта.
           </p>
           <a
             href="#contact"
