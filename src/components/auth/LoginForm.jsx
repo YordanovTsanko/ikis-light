@@ -72,7 +72,7 @@ const LoginForm = () => {
             )}
           </div>
 
-          <div className="mb-4 flex gap-4 sm:gap-0 flex-col sm:flex-row items-center justify-between px-3 w-full max-w-lg">
+          <div className="mb-4 flex items-center justify-between px-3 w-full max-w-lg">
             <div className="flex items-center gap-1">
               <Field
                 id="rememberMe"

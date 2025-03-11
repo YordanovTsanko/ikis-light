@@ -34,9 +34,9 @@ const Footer = () => {
             <span className="font-semibold">Имейл:</span> office@ikis-light.com
           </p>
         </div>
-        <div className="p-5">
-          <img src="/logo_light.png" className="w-full" alt="IKIS Light" />
-          <div className="flex gap-2 text-xl mt-2 relative float-end text-white">
+        <div className="p-5 flex items-center justify-center md:items-end flex-col">
+          <img src="/logo_light.png" className="w-auto lg:w-full h-20" alt="IKIS Light" />
+          <div className="flex gap-2 text-2xl mt-5 text-white">
             <BsLinkedin />
             <BsFacebook />
             <BsInstagram />

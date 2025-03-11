@@ -9,7 +9,7 @@ const SignIn = () => {
   return (
     <div className="min-h-screen text-white w-full bg-gradient-to-r from-primary to-black py-5 flex">
       <div className="flex flex-col gap-5 lg:gap-0 lg:flex-row items-center justify-center w-full max-w-[2000px] mx-auto  px-2 lg:px-0">
-        <div className="flex flex-col items-center justify-center space-y-3 px-16 text-center w-[500px] order-2 lg:order-1">
+        <div className="flex flex-col items-center justify-center space-y-3 px-16 text-center md:w-[500px] order-2 lg:order-1">
           <IoBusiness size={45} />
           <h2 className="font-semibold text-2xl">Добре дошли !</h2>
           <p className="font-light py-3">Нямате акаунт ?</p>
