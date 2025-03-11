@@ -33,7 +33,7 @@ const LoginForm = () => {
       }}
     >
       {({ values, touched, errors, setFieldValue, handleSubmit }) => (
-        <Form className="text-black w-full px-20 py-5" onSubmit={handleSubmit}>
+        <Form className="text-black w-full px-5 lg:px-20 py-5" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"

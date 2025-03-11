@@ -44,7 +44,7 @@ const RegistrationForm = () => {
       }}
     >
       {({ values, touched, errors, setFieldValue, handleSubmit }) => (
-        <Form className="text-black w-full px-20 py-5" onSubmit={handleSubmit}>
+        <Form className="text-black w-full px-5 lg:px-20 py-5" onSubmit={handleSubmit}>
           <div className="mb-4 flex space-x-4">
             <div className="w-1/2">
               <label
