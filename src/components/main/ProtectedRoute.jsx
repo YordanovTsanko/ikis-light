@@ -17,7 +17,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
       const userRole = parsedToken.role;
 
       if (requiredRole && userRole !== requiredRole) {
-        navigate(userRole === "admin" ? "/dashboard/admin" : "/dashboard", { replace: true });
+        navigate(userRole === "buser" ? "/dashboard/business" : "/dashboard", { replace: true });
         return;
       }
     } catch (error) {

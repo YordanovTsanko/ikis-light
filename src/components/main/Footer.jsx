@@ -4,7 +4,7 @@ import { BsLinkedin, BsFacebook, BsInstagram, BsPinterest} from "react-icons/bs"
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-10 max-w-[2000px] mx-auto">
         <div className="p-5">
           <h2 className="font-bold text-xl mb-2">Информацция</h2>
             <p className="text-md hover:text-gray-400 cursor-pointer">За Нас</p>

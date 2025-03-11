@@ -37,7 +37,7 @@ const MainLayout = () => {
         <Route
           path="/dashboard/admin/*"
           element={
-            <ProtectedRoute requiredRole="admin">
+            <ProtectedRoute requiredRole="buser">
               <BusinessDashboard />
             </ProtectedRoute>
           }
