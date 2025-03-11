@@ -4,8 +4,8 @@ import { BsLinkedin, BsFacebook, BsInstagram, BsPinterest} from "react-icons/bs"
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="grid grid-cols-4 gap-4 py-10">
-        <div className="px-10 py-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-10">
+        <div className="p-5">
           <h2 className="font-bold text-xl mb-2">Информацция</h2>
             <p className="text-md hover:text-gray-400 cursor-pointer">За Нас</p>
             <p className="text-md hover:text-gray-400 cursor-pointer">Потребителски права</p>
@@ -13,7 +13,7 @@ const Footer = () => {
             <p className="text-md hover:text-gray-400 cursor-pointer">Политика за поверителност</p>
             <p className="text-md hover:text-gray-400 cursor-pointer">Контакти</p>
         </div>
-        <div className="py-5 flex flex-col gap-10">
+        <div className="p-5 flex flex-col gap-10">
           <div className="">
             <h2  className="font-bold text-xl mb-2">Работно време</h2>
             <p className="text-md hover:text-gray-400 cursor-pointer">Понеделник - Петък 09:30 - 18:30</p>
@@ -26,7 +26,7 @@ const Footer = () => {
             </p>
           </div>
         </div>
-        <div className="py-5">
+        <div className="p-5">
           <h2 className="font-bold text-xl mb-2">Контакти</h2>
           <p className="text-md hover:text-gray-400 cursor-pointer">+359 886 507 787</p>
           <p className="text-md hover:text-gray-400 cursor-pointer">+359 887 606 909</p>
