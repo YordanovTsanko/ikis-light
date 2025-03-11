@@ -12,9 +12,9 @@ import Dashboard from "./pages/client/Dashboard";
 import Navbar from "./components/main/Navbar";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
+import Footer from "./components/main/Footer";
 
 const App = () => {
-
   return (
     <Router>
       <MainLayout />
@@ -41,7 +41,6 @@ const MainLayout = () => {
               <BusinessDashboard />
             </ProtectedRoute>
           }
-          exact
         />
         <Route
           path="/dashboard/*"
@@ -50,9 +49,9 @@ const MainLayout = () => {
               <Dashboard />
             </ProtectedRoute>
           }
-          exact
         />
       </Routes>
+      {!shouldHideNavbar && <Footer />}
     </div>
   );
 };

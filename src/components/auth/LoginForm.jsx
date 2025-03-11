@@ -33,8 +33,8 @@ const LoginForm = () => {
       }}
     >
       {({ values, touched, errors, setFieldValue, handleSubmit }) => (
-        <Form className="text-black w-full px-5 lg:px-20 py-5" onSubmit={handleSubmit}>
-          <div className="mb-4">
+        <Form className="text-black w-full px-5 lg:px-20 py-5 flex flex-col items-center" onSubmit={handleSubmit}>
+          <div className="mb-4 w-full max-w-lg">
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700 after:content-['*'] after:ml-0.5 after:text-red-500"
@@ -53,7 +53,7 @@ const LoginForm = () => {
             )}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 w-full max-w-lg">
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700 after:content-['*'] after:ml-0.5 after:text-red-500"
@@ -72,7 +72,7 @@ const LoginForm = () => {
             )}
           </div>
 
-          <div className="mb-4 flex gap-4 sm:gap-0 flex-col sm:flex-row items-center justify-between px-3">
+          <div className="mb-4 flex gap-4 sm:gap-0 flex-col sm:flex-row items-center justify-between px-3 w-full max-w-lg">
             <div className="flex items-center gap-1">
               <Field
                 id="rememberMe"
@@ -111,7 +111,7 @@ const LoginForm = () => {
 
           <button
             type="submit"
-            className="bg-primary text-white py-2 px-6 w-full rounded-full hover:scale-105 w-[200px] relative float-end"
+            className="bg-primary text-white py-2 px-6 w-full rounded-full hover:scale-105 w-[200px]"
           >
             Влезте
           </button>
