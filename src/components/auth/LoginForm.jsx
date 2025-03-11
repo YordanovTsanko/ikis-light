@@ -111,7 +111,7 @@ const LoginForm = () => {
 
           <button
             type="submit"
-            className="bg-primary text-white py-2 px-6 w-full rounded-full hover:scale-105 w-[200px]"
+            className="bg-primary text-white py-2 px-6 w-full rounded-full hover:scale-105 max-w-[300px]"
           >
             Влезте
           </button>
