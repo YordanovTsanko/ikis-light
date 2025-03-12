@@ -50,6 +50,7 @@ const BusinessRefForm = () => {
         subscribe: false,
         designerType: typeOfDesigner.title, // Set the default selected type
       }}
+      className="relative z-20"
       validationSchema={validationSchema}
       validateOnBlur={false}
       validateOnChange={false}

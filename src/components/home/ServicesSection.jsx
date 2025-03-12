@@ -3,7 +3,7 @@ import { FaLightbulb } from "react-icons/fa";
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="pb-12 px-6 sm:px-10 bg-white">
+    <section id="services" className="py-12 px-6 sm:px-10 bg-white">
       <div className="max-w-7xl mx-auto text-center">
       <FaLightbulb size={78} className="text-primary mx-auto mb-2" />
         <h3 className="text-xl xl:text-3xl font-semibold text-gray-900 mb-6  underline decoration-primary underline-offset-2">

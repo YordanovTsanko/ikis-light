@@ -15,13 +15,22 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen text-white w-full bg-gradient-to-r from-primary to-black py-5 flex">
-      <div className="flex flex-col gap-5 lg:flex-row lg:gap-0 items-center justify-center w-full max-w-[2000px] mx-auto p-2 lg:p-0">
-        <div className="flex flex-col items-center justify-center space-y-3 px-16 text-center w-[400px] order-2 lg:order-1">
+      <div className="absolute inset-0 z-10">
+        <img
+          src="/5197214.jpg"
+          alt="error"
+          className="h-full w-full object-cover grayscale contrast-75 opacity-25"
+        />
+      </div>
+      <div className="flex flex-col gap-5 lg:flex-row lg:gap-0 items-center relative z-20 justify-center w-full max-w-[2000px] mx-auto p-2 lg:p-0">
+        <div className="flex flex-col items-center justify-center space-y-3 px-16 text-center lg:w-[400px] order-2 lg:order-1">
           <IoBusiness size={45} />
-          <h2 className="font-semibold text-2xl">Добре дошли !</h2>
+          <h2 className="font-semibold text-2xl hidden lg:block">
+            Добре дошли !
+          </h2>
           <p className="font-light py-3">Вече имате акаунт ?</p>
           <button
-            className="text-black bg-white px-8 py-1 rounded-full"
+            className="text-black bg-white px-8 py-2 rounded-full"
             onClick={() => {
               navigate("/sign-in");
             }}
@@ -29,8 +38,15 @@ const SignUp = () => {
             Вход
           </button>
         </div>
-        <div className="flex flex-col items-center jutify-center bg-gray-200 w-full rounded-lg lg:rounded-r-none lg:rounded-l-[140px] order-1">
-          <div className="flex items-center justify-end pt-8 me-5 w-full">
+        <div className="flex flex-col items-center jutify-center bg-gray-100 w-full rounded-lg relative z-20 lg:rounded-r-none lg:rounded-l-[140px] order-1">
+          <div className="absolute inset-0 -z-10  rounded-lg lg:rounded-r-none lg:rounded-l-[140px]">
+            <img
+              src="/5197214.jpg"
+              alt="error"
+              className="h-full w-full object-cover grayscale contrast-75 opacity-25 rounded-lg lg:rounded-r-none lg:rounded-l-[140px]"
+            />
+          </div>
+          <div className="flex items-center justify-end pt-8 me-5 w-full relative z-20">
             <div className="bg-primary flex gap-2 p-1 rounded-full">
               <p
                 className={`${
