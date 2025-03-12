@@ -10,9 +10,9 @@ const Catalog = () => {
     text: `Description for Item ${index + 1}`,
   }));
 
-  const [visibleItems, setVisibleItems] = useState(8);
+  const [visibleItems, setVisibleItems] = useState(10);
   const breakpoints = { default: 5, 1100: 4, 700: 3, 500: 2 };
-  const loadMoreItems = () => setVisibleItems((prev) => prev + 8);
+  const loadMoreItems = () => setVisibleItems((prev) => prev + 10);
 
   return (
     <>
