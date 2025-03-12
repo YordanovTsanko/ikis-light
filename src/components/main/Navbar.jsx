@@ -1,11 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { FaBars, FaTimes, FaHome, FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import {
+  FaBars,
+  FaTimes,
+  FaHome,
+  FaSignInAlt,
+  FaUserPlus,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
+import Searchbar from "./Searchbar";
 
 const navLinks = [
-  { href: "/", label: "Начало", icon: <FaHome className="text-primary text-xl" /> },
-  { href: "/sign-in", label: "Влизане", icon: <FaSignInAlt className="text-primary text-xl"/> },
-  { href: "/sign-up", label: "Регистрация", icon: <FaUserPlus className="text-primary text-xl"/> },
+  {
+    href: "/",
+    label: "Начало",
+    icon: <FaHome className="text-primary text-xl" />,
+  },
+  {
+    href: "/sign-in",
+    label: "Влизане",
+    icon: <FaSignInAlt className="text-primary text-xl" />,
+  },
+  {
+    href: "/sign-up",
+    label: "Регистрация",
+    icon: <FaUserPlus className="text-primary text-xl" />,
+  },
 ];
 
 const Navbar = () => {
@@ -31,6 +50,7 @@ const Navbar = () => {
           <a href="/" className="flex items-center">
             <img src="/logo192.png" alt="Logo" className="h-16 w-auto" />
           </a>
+          {!isMobile && <Searchbar />}
           <ul className="hidden md:flex space-x-6 font-secondary">
             {navLinks.map(({ href, label }) => (
               <li key={href}>
@@ -47,7 +67,6 @@ const Navbar = () => {
             {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
         </div>
-
         {isMobile && (
           <motion.ul
             initial={{ opacity: 0, y: -20 }}
@@ -56,8 +75,9 @@ const Navbar = () => {
               y: isOpen ? 0 : 20,
             }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute top-full left-0 w-full bg-white flex flex-col space-y-4 py-4 items-center font-secondary shadow-md"
+            className="absolute px-3 top-full left-0 w-full bg-white flex flex-col space-y-4 py-4 items-center font-secondary shadow-md"
           >
+            <Searchbar />
             {navLinks.map(({ href, label, icon }) => (
               <li key={href}>
                 <a
