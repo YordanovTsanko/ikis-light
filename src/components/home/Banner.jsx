@@ -32,11 +32,11 @@ const Banner = () => {
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-sm sm:text-md md:text-xl text-gray-400 mb-8 max-w-3xl mx-auto drop-shadow-md"
+          className="text-sm sm:text-md md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto drop-shadow-md"
         >
           Открийте нашата иновативна платформа, предназначена за архитекти,
           инженери, интериорни дизайнери и крайни потребители, за лесно
-          намиране на перфектните осветителни решения сAI помощ за визуално
+          намиране на перфектните осветителни решения с AI помощ за визуално
           търсене и персонализирани препоръки.
         </motion.p>
         <motion.button
