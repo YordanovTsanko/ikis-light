@@ -101,7 +101,7 @@ const Products = () => {
     <section id="services" className="py-12 px-6 sm:px-10 bg-white">
       <div className="max-w-7xl mx-auto text-center relative">
         <div className="absolute top-0 left-0 w-full h-full z-10">
-          <img src="/test.png" alt='background ' className="w-full h-full object-cover opacity-20" />
+          <img src="/TEST.png" alt='background' className="w-full h-full object-cover opacity-20" />
         </div>
 
         <h3 className="text-xl xl:text-3xl font-semibold text-gray-900 mb-6 underline decoration-primary underline-offset-2">
@@ -144,9 +144,9 @@ const Products = () => {
                         <img
                           src={image.src}
                           alt={image.text}
-                          className="w-[250px] h-[250px] rounded-lg shadow-lg object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
+                          className="lg:w-[250px] w-full h-[250px] rounded-lg shadow-lg object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-lg  group-hover:opacity-100 transition-opacity duration-300">
                           {image.text}
                         </div>
                       </div>
