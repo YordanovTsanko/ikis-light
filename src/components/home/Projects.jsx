@@ -13,10 +13,10 @@ const Projects = () => {
   return (
     <section id="services" className="py-12 px-6 sm:px-10 bg-white">
       <div className="max-w-7xl mx-auto text-center">
-        <h3 className="xl:text-3xl font-semibold text-gray-900 mb-6 underline decoration-primary underline-offset-2">
+        <h3 className="text-xl xl:text-3xl font-semibold text-gray-900 mb-6 underline decoration-primary underline-offset-2">
           Проекти
         </h3>
-        <p className="text-lg text-gray-600 leading-relaxed mb-12">
+        <p className="text-md xl:text-lg text-gray-600 leading-relaxed mb-12">
           IKIS Light създава персонализирани осветителни решения за всяко бизнес
           пространство – от офис и магазин до фитнес, ресторант или хотел, като
           гарантира максимална ефективност и стил.
