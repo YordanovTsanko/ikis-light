@@ -104,7 +104,7 @@ const Products = () => {
           <img src="/TEST.png" alt='background' className="w-full h-full object-cover opacity-20" />
         </div>
 
-        <h3 className="text-xl xl:text-3xl font-semibold text-gray-900 mb-6 underline decoration-primary underline-offset-2">
+        <h3 className="text-xl xl:text-3xl font-semibold text-gray-900 mb-6 underline decoration-primary underline-offset-2 relative z-20">
           Продукти
         </h3>
         <p className="text-md xl:text-lg text-gray-600 leading-relaxed mb-12">

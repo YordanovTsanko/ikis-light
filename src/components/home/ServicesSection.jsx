@@ -5,15 +5,16 @@ const ServicesSection = () => {
   return (
     <section id="services" className="py-12 px-6 sm:px-10 bg-white">
       <div className="max-w-7xl mx-auto text-center">
-      <FaLightbulb size={78} className="text-primary mx-auto mb-2" />
-        <h3 className="text-xl xl:text-3xl font-semibold text-gray-900 mb-6  underline decoration-primary underline-offset-2">
-          Нашите услуги
+        <FaLightbulb size={78} className="text-primary mx-auto mb-2" />
+        <h3 className="text-xl xl:text-3xl font-semibold text-gray-900 mb-6 ">
+          Имаш още въпроси или нужда от помощ?
         </h3>
         <p className="text-md xl:text-lg text-gray-600 leading-relaxed mb-12">
-          Предлагаме най-съвременни осветителни решения и предоставяме
-          професионални услуги, които ще ви помогнат да осъществите вашите идеи.
-          От индивидуални консултации за дизайн до инсталация и последваща
-          поддръжка, осигуряваме цялостно обслужване за всеки етап от проекта.
+          Нашият екип от експерти е винаги готов да ви помогне с всякакви
+          въпроси относно нашите продукти и услуги. Независимо дали имате нужда
+          от подробности, технически консултации или просто искате да обсъдите
+          вашите осветителни нужди, ние сме тук, за да ви осигурим професионална
+          и приятелска поддръжка.
         </p>
         <a
           href="#contact"
