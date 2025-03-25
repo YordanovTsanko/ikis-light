@@ -54,7 +54,7 @@ function AdminDashboard() {
       </div>
       <ImageUploader />
 
-      <section>
+      <section className="mt-5">
         <h3>Списък с изображения</h3>
         <ul>
           {images.map((image) => (

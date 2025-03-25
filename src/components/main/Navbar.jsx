@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Searchbar from "./Searchbar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/authSlice";
 
 const navLinks = [
@@ -32,11 +32,6 @@ const navLinks = [
 
 const loggedAdmin = [
   {
-    href: "/",
-    label: "Начало",
-    icon: <FaHome className="text-primary text-xl" />,
-  },
-  {
     href: "/admin",
     label: "Админ панел",
     icon: <FaUserPlus className="text-primary text-xl" />,
@@ -50,7 +45,7 @@ const loggedAdmin = [
 
 const Navbar = ({ token }) => {
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.auth.user);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [linksToDisplay, setLinksToDisplay] = useState(!token ? navLinks : loggedAdmin);
@@ -71,8 +66,8 @@ const Navbar = ({ token }) => {
   }, []);
 
   useEffect(() => {
-    setLinksToDisplay(!token ? navLinks : loggedAdmin)
-  }, [token]);
+   user && setLinksToDisplay(loggedAdmin)
+  }, []);
 
   return (
     <nav className="bg-white shadow-md relative w-full z-50">

@@ -37,10 +37,11 @@ const MainLayout = () => {
         setToken(event.newValue);
       }
     };
+    console.log(token)
 
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
+  }, [token]);
 
   if (loading) {
     return <div></div>;

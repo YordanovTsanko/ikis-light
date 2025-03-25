@@ -63,7 +63,7 @@ const ImageUploader = () => {
   }
 
   return (
-    <section>
+    <section className="px-2 md:px-0">
       <div
         {...getRootProps({
           className:
