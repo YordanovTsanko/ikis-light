@@ -78,7 +78,7 @@ const ImageUploader = () => {
         ) : (
           <p className="opacity-60 max-w-auto lg:max-w-sm text-center">
             Плъзнете и пуснете изображения тук или кликнете, за да изберете
-            файлове
+            файл
           </p>
         )}
       </div>
