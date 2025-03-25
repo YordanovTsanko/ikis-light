@@ -6,7 +6,6 @@ import {
   searchImage,
   clearSearchResults,
 } from "../../features/imagesSlice";
-import { logout } from "../../features/authSlice";
 import { useNavigate } from "react-router-dom";
 import ImageUploader from "../../components/main/ImageUploader";
 
@@ -22,40 +21,31 @@ function AdminDashboard() {
     dispatch(fetchImages());
   }, [dispatch]);
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/login");
-  };
-
-  const handleUpload = (e) => {
-    e.preventDefault();
-    if (uploadFile) {
-      dispatch(uploadImage(uploadFile));
-      setUploadFile(null);
-    }
-  };
-
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchFile) {
-      dispatch(searchImage(searchFile));
-    }
-  };
-
-  const handleClearSearch = () => {
-    dispatch(clearSearchResults());
+   alert("Търсене...")
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center">
       <div className="text-center my-10">
-        <h2 className="text-3xl font-bold mb-4">Търсене на подходящ продукт с помоща на AI.</h2>
-        <h4 className="text-lg text-primary">някъкъв текс генериран от ай</h4>
+        <h2 className="text-3xl font-bold mb-2">
+          Търсете продукти с помощта на AI
+        </h2>
+        <h4 className="text-md text-primary opacity-75">
+          Интелигентни препоръки, съобразени с вашите нужди
+        </h4>
       </div>
       <ImageUploader />
 
+      <button
+        onClick={handleSearch}
+        className="text-white bg-primary mt-4 px-10 py-2 rounded-lg hover:bg-red-700   hover:scale-105 transition duration-300"
+      >
+        Търсене
+      </button>
+
       <section className="mt-5">
-        <h3>Списък с изображения</h3>
         <ul>
           {images.map((image) => (
             <li key={image.id}>
@@ -65,7 +55,6 @@ function AdminDashboard() {
           ))}
         </ul>
       </section>
-
     </div>
   );
 }

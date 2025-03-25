@@ -32,7 +32,6 @@ const ImageUploader = () => {
     };
   }, [file]);
 
-  // Render uploading spinner if in uploading state
   if (uploading) {
     return (
       <div className="px-28 py-24 border-2 border-dotted border-primary rounded-md flex flex-col justify-center items-center cursor-pointer">
@@ -42,13 +41,13 @@ const ImageUploader = () => {
   }
   if (file) {
     return (
-      <div className="relative flex justify-center items-center">
+      <div className="relative flex justify-center items-center px-2 lg:px-0">
         <img
           src={file.preview}
           alt={file.name}
           className="w-96 h-96 object-cover rounded-md"
         />
-        <div className="absolute top-2 right-2 group">
+        <div className="absolute top-2 lg:right-2 right-4 group">
           <AiOutlineClose
             onClick={() => setFile(null)}
             className="text-white bg-black rounded-full p-1 cursor-pointer"
@@ -63,11 +62,11 @@ const ImageUploader = () => {
   }
 
   return (
-    <section className="px-2 md:px-0">
+    <section className="px-2 lg:px-0">
       <div
         {...getRootProps({
           className:
-            "px-28 py-24 border-2 border-dotted border-primary rounded-md flex flex-col justify-center items-center cursor-pointer",
+            "px-12 md:px-28 py-24 border-2 border-dotted border-primary rounded-md flex flex-col justify-center items-center cursor-pointer",
         })}
       >
         <input {...getInputProps()} />
@@ -77,7 +76,7 @@ const ImageUploader = () => {
             Пуснете изображенито тук...
           </p>
         ) : (
-          <p className="opacity-60 max-w-sm text-center">
+          <p className="opacity-60 max-w-auto lg:max-w-sm text-center">
             Плъзнете и пуснете изображения тук или кликнете, за да изберете
             файлове
           </p>
