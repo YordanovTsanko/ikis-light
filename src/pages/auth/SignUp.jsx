@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoBusiness } from "react-icons/io5";
 import RegistrationForm from "../../components/auth/RegistrationForm";
 import BusinessRefForm from "../../components/auth/BusinessRefForm";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = ({ token }) => {
   const [selected, setSelected] = useState(true);
 
   const navigate = useNavigate();
@@ -13,6 +13,11 @@ const SignUp = () => {
     setSelected(isPrivate);
   };
 
+  useEffect(() => {
+    if (token) {
+      navigate("/admin");
+    }
+  }, [navigate, token]);
   return (
     <div className="min-h-screen text-white w-full bg-gradient-to-r from-primary to-black py-5 flex">
       <div className="absolute inset-0 z-10">

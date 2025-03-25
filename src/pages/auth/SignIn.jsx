@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoBusiness } from "react-icons/io5";
 import LoginForm from "../../components/auth/LoginForm";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../features/authSlice";
 
-const SignIn = () => {
+const SignIn = ({ token }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogin = (values, { setFieldError }) => {
+    if (
+      values.email === "admin@ikis-light.com" &&
+      values.password === "admin123"
+    ) {
+      dispatch(loginSuccess(values));
+      navigate("/admin");
+    } else {
+      setFieldError("email", "Невалидни данни");
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/admin");
+    }
+  }, [navigate, token]);
 
   return (
     <div className="min-h-screen text-white w-full bg-gradient-to-r from-primary to-black py-5 flex">
@@ -41,7 +62,7 @@ const SignIn = () => {
           </div>
           <div className=" w-full flex flex-col items-center jutify-center bg-gray-200 rounded-lg max-w-lg relative z-20">
             <h1 className="text-black font-semibold text-2xl mt-10">Вход</h1>
-            <LoginForm />
+            <LoginForm onLogin={handleLogin} />
             <p className="text-black flex items-center justify-center w-full px-5 lg:px-44 mb-5">
               <span className="flex-1 border-t border-gray-400"></span>
               <span className="px-3">или</span>

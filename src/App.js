@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -6,9 +6,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import ProtectedRoute from "./components/main/ProtectedRoute";
-import BusinessDashboard from "./pages/businessClient/BusinessDashboard";
-import Dashboard from "./pages/client/Dashboard";
+import ProtectedRoute from "./customRouter/ProtectedRoute";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import Navbar from "./components/main/Navbar";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
@@ -24,29 +23,41 @@ const App = () => {
 
 const MainLayout = () => {
   const location = useLocation();
-
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
   const shouldHideNavbar = location.pathname.startsWith("/sign");
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+    setLoading(false);
+
+    const handleStorageChange = (event) => {
+      if (event.key === "token") {
+        setToken(event.newValue);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
+  if (loading) {
+    return <div></div>;
+  }
+
   return (
-    <div className=" bg-gray-300 min-h-screen">
-      {!shouldHideNavbar && <Navbar />}
+    <div className="bg-gray-300 min-h-screen">
+      {!shouldHideNavbar && <Navbar token={token} />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn token={token} />} />
+        <Route path="/sign-up" element={<SignUp token={token} />} />
         <Route
-          path="/dashboard/admin/*"
+          path="/admin"
           element={
-            <ProtectedRoute requiredRole="buser">
-              <BusinessDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/dashboard/*"
-          element={
-            <ProtectedRoute requiredRole="user">
-              <Dashboard />
+            <ProtectedRoute>
+              <AdminDashboard />
             </ProtectedRoute>
           }
         />

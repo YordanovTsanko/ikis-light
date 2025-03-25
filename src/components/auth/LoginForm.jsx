@@ -1,9 +1,9 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom"; // Assuming React Router is used
+import { Link } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Невалиден имейл адрес")
@@ -23,17 +23,15 @@ const LoginForm = () => {
       validationSchema={validationSchema}
       validateOnBlur={false}
       validateOnChange={false}
-      onSubmit={(values, { setFieldError }) => {
-        console.log("Login data:", values);
-
-        // Simulating an error from the backend (example)
-        if (values.email !== "test@example.com") {
-          setFieldError("email", "Този имейл не е регистриран");
-        }
+      onSubmit={(values, actions) => {
+        onLogin(values, actions);
       }}
     >
       {({ values, touched, errors, setFieldValue, handleSubmit }) => (
-        <Form className="text-black w-full px-5 lg:px-20 py-5 flex flex-col items-center" onSubmit={handleSubmit}>
+        <Form
+          className="text-black w-full px-5 lg:px-20 py-5 flex flex-col items-center"
+          onSubmit={handleSubmit}
+        >
           <div className="mb-4 w-full max-w-lg">
             <label
               htmlFor="email"
@@ -78,7 +76,9 @@ const LoginForm = () => {
                 id="rememberMe"
                 name="rememberMe"
                 type="checkbox"
-                onChange={() => setFieldValue("rememberMe", !values.rememberMe)}
+                onChange={() =>
+                  setFieldValue("rememberMe", !values.rememberMe)
+                }
                 style={{
                   WebkitAppearance: "none",
                   MozAppearance: "none",
@@ -90,7 +90,7 @@ const LoginForm = () => {
                   cursor: "pointer",
                   backgroundColor: values.rememberMe ? "red" : "white",
                   backgroundImage: values.rememberMe
-                    ? "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='white' stroke-width='2' d='M2 8l4 4 8-8'/%3E%3C/svg%3E\")"
+                    ? 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 16 16\'%3E%3Cpath fill=\'none\' stroke=\'white\' stroke-width=\'2\' d=\'M2 8l4 4 8-8\'/%3E%3C/svg%3E")'
                     : "none",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",

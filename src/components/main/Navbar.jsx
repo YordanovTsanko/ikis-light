@@ -5,9 +5,12 @@ import {
   FaHome,
   FaSignInAlt,
   FaUserPlus,
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Searchbar from "./Searchbar";
+import { useDispatch } from "react-redux";
+import { logout } from "../../features/authSlice";
 
 const navLinks = [
   {
@@ -27,9 +30,33 @@ const navLinks = [
   },
 ];
 
-const Navbar = () => {
+const loggedAdmin = [
+  {
+    href: "/",
+    label: "Начало",
+    icon: <FaHome className="text-primary text-xl" />,
+  },
+  {
+    href: "/admin",
+    label: "Админ панел",
+    icon: <FaUserPlus className="text-primary text-xl" />,
+  },
+  {
+    href: "/",
+    label: "Изход",
+    icon: <FaSignOutAlt className="text-primary text-xl" />,
+  },
+];
+
+const Navbar = ({ token }) => {
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [linksToDisplay, setLinksToDisplay] = useState(!token ? navLinks : loggedAdmin);
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,6 +70,10 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    setLinksToDisplay(!token ? navLinks : loggedAdmin)
+  }, [token]);
+
   return (
     <nav className="bg-white shadow-md relative w-full z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,10 +81,17 @@ const Navbar = () => {
           <a href="/" className="flex items-center">
             <img src="/logo192.png" alt="Logo" className="h-16 w-auto" />
           </a>
-          {!isMobile && <Searchbar />}
+          {!isMobile && !token && <Searchbar />}
           <ul className="hidden md:flex space-x-6 font-secondary">
-            {navLinks.map(({ href, label }) => (
-              <li key={href}>
+            {linksToDisplay.map(({ href, label }) => (
+              <li
+                key={href}
+                onClick={() => {
+                  if (label === "Изход") {
+                    handleLogout();
+                  }
+                }}
+              >
                 <a href={href} className="text-gray-700 hover:text-primary">
                   {label}
                 </a>
@@ -78,11 +116,16 @@ const Navbar = () => {
             className="absolute px-3 top-full left-0 w-full bg-white flex flex-col space-y-4 py-4 items-center font-secondary shadow-md"
           >
             <Searchbar />
-            {navLinks.map(({ href, label, icon }) => (
+            {linksToDisplay.map(({ href, label, icon }) => (
               <li key={href}>
                 <a
                   href={href}
                   className="text-gray-700 hover:text-primary flex items-center space-x-3 py-1"
+                  onClick={() => {
+                    if (label === "Изход") {
+                      handleLogout();
+                    }
+                  }}
                 >
                   {icon} <span>{label}</span>
                 </a>
