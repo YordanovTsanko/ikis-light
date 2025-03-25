@@ -1,33 +1,38 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// AsyncThunk за зареждане на всички изображения
-export const fetchImages = createAsyncThunk('images/fetchImages', async () => {
-  const response = await fetch('/api/images'); // Заменете с реалната крайна точка
-  return await response.json();
+const simulateImages = () => {
+  return Array.from({ length: 20 }, (_, index) => ({
+    id: index + 1,
+    url: `https://placehold.co/100x100`,
+    title: `Image ${index + 1}`,
+    description: `This is a description for image ${index + 1}.`,
+  }));
+};
+
+export const fetchImages = createAsyncThunk("images/fetchImages", async () => {
+  const images = simulateImages();
+  return images;
 });
 
-// AsyncThunk за качване на изображение
-export const uploadImage = createAsyncThunk('images/uploadImage', async (file) => {
-  const formData = new FormData();
-  formData.append('image', file);
-  const response = await fetch('/api/upload', { method: 'POST', body: formData });
-  return await response.json();
-});
-
-// AsyncThunk за търсене по изображение
-export const searchImage = createAsyncThunk('images/searchImage', async (file) => {
-  const formData = new FormData();
-  formData.append('image', file);
-  const response = await fetch('/api/search', { method: 'POST', body: formData });
-  return await response.json();
-});
+export const searchImage = createAsyncThunk(
+  "images/searchImage",
+  async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    const response = await fetch("/api/search", {
+      method: "POST",
+      body: formData,
+    });
+    return await response.json();
+  }
+);
 
 const imagesSlice = createSlice({
-  name: 'images',
+  name: "images",
   initialState: {
     list: [],
     searchResults: [],
-    status: 'idle',
+    status: "idle",
     error: null,
   },
   reducers: {
@@ -37,16 +42,16 @@ const imagesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchImages.pending, (state, action) => {
+        state.status = "loadingFetch";
+      })
       .addCase(fetchImages.fulfilled, (state, action) => {
         state.list = action.payload;
-        state.status = 'succeeded';
+        state.status = "successFetch";
       })
       .addCase(fetchImages.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(uploadImage.fulfilled, (state, action) => {
-        state.list.push(action.payload);
+        state.status = "failedFetch";
+        state.error = action.payload;
       })
       .addCase(searchImage.fulfilled, (state, action) => {
         state.searchResults = action.payload;
