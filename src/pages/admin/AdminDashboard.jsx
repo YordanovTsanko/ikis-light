@@ -18,14 +18,15 @@ const AdminDashboard = () => {
     e.preventDefault();
     alert("В процес на разработка !");
   };
-  
 
   const sliderSettings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    rows: 2,
+    slidesPerRow: 2,
     responsive: [
       {
         breakpoint: 768,
@@ -39,6 +40,43 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center">
+      <style>
+        {`
+  .slick-slider {
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 767px) {
+    .slick-slider {
+      max-width: 90%;
+    }
+  }
+
+  .slick-prev:before, .slick-next:before {
+    color: red !important;
+    font-size: 35px !important;
+    
+  @media screen and (max-width: 767px) {
+    font-size: 25px !important;
+  }
+  }
+
+  .slick-prev {
+    left: -40px !important;
+  }
+
+  @media screen and (max-width: 767px) {
+    .slick-prev {
+    left: -30px !important;
+    }
+
+    .slick-next {
+    right: -25px !important;
+    }
+  }
+`}
+      </style>
+
       <div className="text-center my-10">
         <h2 className="text-3xl font-bold mb-2">
           Търсете продукти с помощта на AI
@@ -73,12 +111,11 @@ const AdminDashboard = () => {
       )}
 
       {status === "successFetch" && list.length > 0 && (
-        <div className="w-full px-10 mt-4 mb-20">
+        <div className="w-full px-10 mt-4 mb-10">
           <Slider {...sliderSettings}>
             {list.map((image) => {
-              console.log(image);
               return (
-                <div key={image.id} className="px-2">
+                <div key={image.id} className="px-1">
                   <img
                     src={image.url}
                     alt={image.title}
@@ -90,6 +127,12 @@ const AdminDashboard = () => {
           </Slider>
         </div>
       )}
+      <button
+        onClick={handleSearch}
+        className="text-white bg-primary mb-20 px-10 py-2 rounded-lg hover:bg-red-700 hover:scale-105 transition duration-300"
+      >
+        Нов продукт
+      </button>
     </div>
   );
 };
