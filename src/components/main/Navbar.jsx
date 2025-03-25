@@ -67,7 +67,7 @@ const Navbar = ({ token }) => {
 
   useEffect(() => {
    user && setLinksToDisplay(loggedAdmin)
-  }, []);
+  }, [user]);
 
   return (
     <nav className="bg-white shadow-md relative w-full z-50">
