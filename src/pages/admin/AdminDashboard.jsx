@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { fetchImages } from "../../features/imagesSlice";
@@ -6,10 +6,12 @@ import ImageUploader from "../../components/main/ImageUploader";
 import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { LuCross } from "react-icons/lu";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
   const { list, status, error } = useSelector((state) => state.images);
+  const [addProduct, setAddProduct] = useState(false);
 
   useEffect(() => {
     dispatch(fetchImages());
@@ -85,24 +87,51 @@ const AdminDashboard = () => {
 
       <div className="text-center my-10">
         <h2 className="text-3xl font-bold mb-2">
-          Търсете продукти с помощта на AI
+          Търсене на продукт с AI помощ
         </h2>
         <h4 className="text-md text-primary opacity-75">
           Интелигентни препоръки, съобразени с вашите нужди
         </h4>
       </div>
-      
+      <div className="flex flex-col w-full items-end mr-12 md:mr-0 md:max-w-[600px] mb-4">
+        {!addProduct ? (
+          <div
+            className="flex text-white items-center justify-center bg-primary rounded-lg px-2 py-1 gap-2 cursor-pointer"
+            onClick={() => setAddProduct(true)}
+          >
+            <LuCross className="mt-[4px]" />{" "}
+            <p className="mb-[1px]">Добавяне на продукт</p>
+          </div>
+        ) : (
+          <div
+            className="flex text-white items-center justify-center bg-primary rounded-lg px-2 py-1 gap-2 cursor-pointer"
+            onClick={() => setAddProduct(false)}
+          >
+            <LuCross className="mt-[4px]" />{" "}
+            <p className="mb-[1px]">Търсене на продукт</p>
+          </div>
+        )}
+      </div>
       <ImageUploader />
-
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={handleSearch}
-        className="text-white bg-primary mt-4 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
-      >
-        Търсене
-      </motion.button>
-
+      {!addProduct ? (
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleSearch}
+          className="text-white bg-primary mt-3 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
+        >
+          Търсене
+        </motion.button>
+      ) : (
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleSearch}
+          className="text-white bg-primary mt-3 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
+        >
+          Нов продукт
+        </motion.button>
+      )}
       <h2 className="text-3xl font-bold mb-2 mt-10">Всички продукти</h2>
 
       {status === "loadingFetch" && (
@@ -142,15 +171,6 @@ const AdminDashboard = () => {
           </Slider>
         </div>
       )}
-
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={handleSearch}
-        className="text-white bg-primary mb-20 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
-      >
-        Нов продукт
-      </motion.button>
     </motion.div>
   );
 };
