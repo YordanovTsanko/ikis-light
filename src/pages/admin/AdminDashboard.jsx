@@ -6,7 +6,7 @@ import ImageUploader from "../../components/main/ImageUploader";
 import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { LuCross } from "react-icons/lu";
+import { LuCross, LuSearch } from "react-icons/lu";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -94,23 +94,19 @@ const AdminDashboard = () => {
         </h4>
       </div>
       <div className="flex flex-col w-full items-end mr-12 md:mr-0 md:max-w-[600px] mb-4">
-        {!addProduct ? (
-          <div
-            className="flex text-white items-center justify-center bg-primary rounded-lg px-2 py-1 gap-2 cursor-pointer"
-            onClick={() => setAddProduct(true)}
-          >
-            <LuCross className="mt-[4px]" />{" "}
-            <p className="mb-[1px]">Добавяне на продукт</p>
-          </div>
-        ) : (
-          <div
-            className="flex text-white items-center justify-center bg-primary rounded-lg px-2 py-1 gap-2 cursor-pointer"
-            onClick={() => setAddProduct(false)}
-          >
-            <LuCross className="mt-[4px]" />{" "}
-            <p className="mb-[1px]">Търсене на продукт</p>
-          </div>
-        )}
+        <div
+          className="flex text-white items-center justify-center bg-primary rounded-lg px-2 py-1 gap-2 cursor-pointer hover:bg-red-600 hover:scale-105 transition duration-300"
+          onClick={() => setAddProduct((prev) => !prev)}
+        >
+          {addProduct ? (
+            <LuCross className="mt-[4px]" />
+          ) : (
+            <LuSearch className="mt-[4px]" />
+          )}
+          <p className="mb-[1px]">
+            {addProduct ? "Добавяне на продукт" : "Търсене на продукт"}
+          </p>
+        </div>
       </div>
       <ImageUploader />
       {!addProduct ? (
@@ -129,7 +125,7 @@ const AdminDashboard = () => {
           onClick={handleSearch}
           className="text-white bg-primary mt-3 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
         >
-          Нов продукт
+          Добавяне
         </motion.button>
       )}
       <h2 className="text-3xl font-bold mb-2 mt-10">Всички продукти</h2>
