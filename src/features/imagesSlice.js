@@ -4,7 +4,7 @@ import api from "../api/api";
 // Fetching simulated images
 export const fetchImages = createAsyncThunk("images/fetchImages", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get("images");
+    const response = await api.get("images/");
     console.log(response.data);
     return response.data
   } catch (error) {

@@ -32,18 +32,17 @@ const AdminDashboard = () => {
 
   const sliderSettings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     rows: 2,
-    slidesPerRow: 2,
     responsive: [
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 2,
+          slidesToScroll: 2,
         },
       },
     ],
@@ -168,8 +167,8 @@ const AdminDashboard = () => {
                 transition={{ delay: 0.2 }}
               >
                 <img
-                  src={image.url}
-                  alt={image.title}
+                  src={`data:image/jpeg;base64,${image.imageData}`}
+                  alt={image.imageName}
                   className="w-full h-auto object-cover rounded-lg"
                 />
               </motion.div>
