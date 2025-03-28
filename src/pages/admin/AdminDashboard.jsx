@@ -169,7 +169,7 @@ const AdminDashboard = () => {
                 <img
                   src={`data:image/jpeg;base64,${image.imageData}`}
                   alt={image.imageName}
-                  className="w-full h-auto object-cover rounded-lg"
+                  className="w-full h-64 object-cover rounded-lg"
                 />
               </motion.div>
             ))}
