@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
-import { fetchImages } from "../../features/imagesSlice";
+import { fetchImages, uploadImage } from "../../features/imagesSlice";
 import ImageUploader from "../../components/main/ImageUploader";
 import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
@@ -10,8 +10,11 @@ import { LuCross, LuSearch } from "react-icons/lu";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
-  const { list, status, error } = useSelector((state) => state.images);
+  const { list, status, statusUpload, error, errorUpload } = useSelector(
+    (state) => state.images
+  );
   const [addProduct, setAddProduct] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     dispatch(fetchImages());
@@ -20,6 +23,11 @@ const AdminDashboard = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     alert("В процес на разработка !");
+  };
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    dispatch(uploadImage(imageFile));
   };
 
   const sliderSettings = {
@@ -108,12 +116,17 @@ const AdminDashboard = () => {
           </p>
         </div>
       </div>
-      <ImageUploader />
+      <ImageUploader imageFile={imageFile} setImageFile={setImageFile} />
+      {errorUpload && <div className="text-red-500 my-4">{errorUpload}</div>}
+      {statusUpload === "succeeded" && (
+        <div className="text-green-500 my-4">Успешно добавена снимка</div>
+      )}
       {!addProduct ? (
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleSearch}
+          disabled={statusUpload === "loading"}
           className="text-white bg-primary mt-3 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
         >
           Търсене
@@ -122,15 +135,16 @@ const AdminDashboard = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={handleSearch}
+          onClick={handleUpload}
+          disabled={statusUpload === "loading"}
           className="text-white bg-primary mt-3 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
         >
-          Добавяне
+          {statusUpload === "loading" ? "Зареждане" : "Добавяне"}
         </motion.button>
       )}
       <h2 className="text-3xl font-bold mb-2 mt-10">Всички продукти</h2>
 
-      {status === "loadingFetch" && (
+      {status === "loading" && (
         <div className="w-full flex justify-center items-center my-10">
           <div className="animate-pulse flex space-x-4">
             {[...Array(3)].map((_, index) => (
@@ -140,13 +154,9 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {error && (
-        <div className="text-red-500 my-4">
-          Грешка при зареждането на изображения: {error}
-        </div>
-      )}
+      {status === "failed" && <div className="text-red-500 my-4">{error}</div>}
 
-      {status === "successFetch" && list.length > 0 && (
+      {status === "succeeded" && list.length > 0 && (
         <div className="w-full px-10 mt-4 mb-10">
           <Slider {...sliderSettings}>
             {list.map((image) => (

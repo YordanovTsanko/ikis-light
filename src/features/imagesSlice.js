@@ -1,29 +1,40 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import api from "../api/api";
 
-const simulateImages = () => {
-  return Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1,
-    url: `https://placehold.co/100x100`,
-    title: `Image ${index + 1}`,
-    description: `This is a description for image ${index + 1}.`,
-  }));
-};
-
-export const fetchImages = createAsyncThunk("images/fetchImages", async () => {
-  const images = simulateImages();
-  return images;
+// Fetching simulated images
+export const fetchImages = createAsyncThunk("images/fetchImages", async (_, { rejectWithValue }) => {
+  try {
+    const response = await api.get("images");
+    console.log(response.data);
+    return response.data
+  } catch (error) {
+    console.error("Image upload failed:", error);
+    return rejectWithValue(
+      error.response?.data?.message || "Грешка в зареждането на изображения"
+    );
+  }
 });
 
-export const searchImage = createAsyncThunk(
-  "images/searchImage",
-  async (file) => {
-    const formData = new FormData();
-    formData.append("image", file);
-    const response = await fetch("/api/search", {
-      method: "POST",
-      body: formData,
-    });
-    return await response.json();
+export const uploadImage = createAsyncThunk(
+  "images/uploadImage",
+  async (file, { rejectWithValue }) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await api.post("images/add", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      return rejectWithValue(
+        error.response?.data?.message || "Грешка в качването на изображение"
+      );
+    }
   }
 );
 
@@ -31,33 +42,45 @@ const imagesSlice = createSlice({
   name: "images",
   initialState: {
     list: [],
-    searchResults: [],
     status: "idle",
     error: null,
+    //uploading
+    statusUpload: "idle",
+    errorUpload: null,
+    uploadedImage: null,
   },
   reducers: {
-    clearSearchResults: (state) => {
-      state.searchResults = [];
+    clearUploadedImage: (state) => {
+      state.uploadedImage = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchImages.pending, (state, action) => {
-        state.status = "loadingFetch";
+      .addCase(fetchImages.pending, (state) => {
+        state.status = "loading";
       })
       .addCase(fetchImages.fulfilled, (state, action) => {
         state.list = action.payload;
-        state.status = "successFetch";
+        state.status = "succeeded";
       })
       .addCase(fetchImages.rejected, (state, action) => {
-        state.status = "failedFetch";
+        state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(searchImage.fulfilled, (state, action) => {
-        state.searchResults = action.payload;
+      .addCase(uploadImage.pending, (state) => {
+        state.statusUpload = "loading";
+      })
+      .addCase(uploadImage.fulfilled, (state, action) => {
+        state.list.push(action.payload);
+        state.uploadedImage = action.payload;
+        state.statusUpload = "succeeded";
+      })
+      .addCase(uploadImage.rejected, (state, action) => {
+        state.statusUpload = "failed";
+        state.errorUpload = action.payload;
       });
   },
 });
 
-export const { clearSearchResults } = imagesSlice.actions;
+export const { clearUploadedImage } = imagesSlice.actions;
 export default imagesSlice.reducer;

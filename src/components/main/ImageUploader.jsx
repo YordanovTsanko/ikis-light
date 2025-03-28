@@ -4,8 +4,7 @@ import { ImUpload } from "react-icons/im";
 import { AiOutlineClose } from "react-icons/ai";
 import Loader from "./Loader";
 
-const ImageUploader = () => {
-  const [file, setFile] = useState(null);
+const ImageUploader = ({imageFile, setImageFile}) => {
   const [uploading, setUploading] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -14,11 +13,11 @@ const ImageUploader = () => {
       setUploading(true);
       const preview = URL.createObjectURL(selectedFile);
       setTimeout(() => {
-        setFile(Object.assign(selectedFile, { preview }));
+        setImageFile(Object.assign(selectedFile, { preview }));
         setUploading(false);
       }, 2000);
     }
-  }, []);
+  }, [setImageFile]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -28,9 +27,9 @@ const ImageUploader = () => {
 
   useEffect(() => {
     return () => {
-      if (file) URL.revokeObjectURL(file.preview);
+      if (imageFile) URL.revokeObjectURL(imageFile.preview);
     };
-  }, [file]);
+  }, [imageFile]);
 
   if (uploading) {
     return (
@@ -39,17 +38,17 @@ const ImageUploader = () => {
       </div>
     );
   }
-  if (file) {
+  if (imageFile) {
     return (
       <div className="relative flex justify-center items-center px-2 lg:px-0">
         <img
-          src={file.preview}
-          alt={file.name}
+          src={imageFile.preview}
+          alt={imageFile.name}
           className="w-96 h-96 object-cover rounded-md"
         />
         <div className="absolute top-2 lg:right-2 right-4 group">
           <AiOutlineClose
-            onClick={() => setFile(null)}
+            onClick={() => setImageFile(null)}
             className="text-white bg-black rounded-full p-1 cursor-pointer"
             size={24}
           />
