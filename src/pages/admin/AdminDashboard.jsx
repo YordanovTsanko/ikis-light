@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
-import { fetchImages, uploadImage } from "../../features/imagesSlice";
+import {
+  fetchImages,
+  searchImage,
+  uploadImage,
+  createEmbeddings
+} from "../../features/imagesSlice";
 import ImageUploader from "../../components/main/ImageUploader";
 import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
@@ -22,12 +27,16 @@ const AdminDashboard = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    alert("В процес на разработка !");
+    dispatch(searchImage(imageFile));
   };
 
   const handleUpload = (e) => {
     e.preventDefault();
-    dispatch(uploadImage(imageFile));
+    try {
+      dispatch(uploadImage(imageFile));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const sliderSettings = {
