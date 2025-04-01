@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api/api";
+import { b } from "framer-motion/client";
 
 // Fetching simulated images - GET
 export const fetchImages = createAsyncThunk(
@@ -30,6 +31,7 @@ export const uploadImage = createAsyncThunk(
         },
       });
 
+      console.log(await response.blob());
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -51,34 +53,18 @@ export const searchImage = createAsyncThunk(
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      });
-      console.log(response.data);
-      return response.data;
+        responseType: "blob",
+      }); 
+
+      const blob = new Blob([response.data], { type: "image/png" });
+      const imageUrl = URL.createObjectURL(blob);
+
+      console.log("Image URL:", imageUrl); 
+
+      return imageUrl
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Грешка в търсенето на изображение"
-      );
-    }
-  }
-);
-
-// Creating embeddings - POST
-export const createEmbeddings = createAsyncThunk(
-  "images/createEmbeddings",
-  async (file, { rejectWithValue }) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await api.post("images/create-embeddings", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || "Error creating embeddings"
       );
     }
   }
@@ -98,10 +84,6 @@ const imagesSlice = createSlice({
     statusSearch: "idle",
     errorSearch: null,
     searchResults: null,
-    // Creating Embeddings
-    statusEmbeddings: "idle",
-    errorEmbeddings: null,
-    embeddingsResults: null,
   },
   reducers: {
     clearUploadedImage: (state) => {
@@ -147,19 +129,6 @@ const imagesSlice = createSlice({
       .addCase(searchImage.rejected, (state, action) => {
         state.statusSearch = "failed";
         state.errorSearch = action.payload;
-      })
-      // Create embeddings
-      .addCase(createEmbeddings.pending, (state) => {
-        state.statusEmbeddings = "loading";
-        state.errorEmbeddings = null;
-      })
-      .addCase(createEmbeddings.fulfilled, (state, action) => {
-        state.embeddingsResults = action.payload;
-        state.statusEmbeddings = "succeeded";
-      })
-      .addCase(createEmbeddings.rejected, (state, action) => {
-        state.statusEmbeddings = "failed";
-        state.errorEmbeddings = action.payload;
       });
   },
 });

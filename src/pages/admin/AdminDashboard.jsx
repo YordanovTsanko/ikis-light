@@ -5,7 +5,6 @@ import {
   fetchImages,
   searchImage,
   uploadImage,
-  createEmbeddings
 } from "../../features/imagesSlice";
 import ImageUploader from "../../components/main/ImageUploader";
 import { motion } from "framer-motion";
@@ -15,9 +14,16 @@ import { LuCross, LuSearch } from "react-icons/lu";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
-  const { list, status, statusUpload, error, errorUpload } = useSelector(
-    (state) => state.images
-  );
+  const {
+    list,
+    status,
+    statusUpload,
+    error,
+    errorUpload,
+    statusSearch,
+    errorSearch,
+    searchResults,
+  } = useSelector((state) => state.images);
   const [addProduct, setAddProduct] = useState(false);
   const [imageFile, setImageFile] = useState(null);
 
@@ -134,10 +140,10 @@ const AdminDashboard = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleSearch}
-          disabled={statusUpload === "loading"}
+          disabled={statusSearch === "loading"}
           className="text-white bg-primary mt-3 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
         >
-          Търсене
+          {statusSearch === "loading" ? "Зареждане" : "Търсене"}
         </motion.button>
       ) : (
         <motion.button
@@ -149,6 +155,21 @@ const AdminDashboard = () => {
         >
           {statusUpload === "loading" ? "Зареждане" : "Добавяне"}
         </motion.button>
+      )}
+      {statusSearch === "succeeded" && (
+        <div className="w-full px-10 mt-4 mb-10 text-center flex flex-col items-center justify-center">
+          <h2 className="text-3xl font-bold mb-10 mt-10">
+            Резултати от Търсенето
+          </h2>
+          {searchResults && (
+            <img
+              src={searchResults}
+              alt="Search Result"
+              className="rounded-lg"
+              style={{ maxWidth: "400px" }}
+            />
+          )}
+        </div>
       )}
       <h2 className="text-3xl font-bold mb-2 mt-10">Всички продукти</h2>
 
