@@ -12,6 +12,7 @@ import Navbar from "./components/main/Navbar";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
 import Footer from "./components/main/Footer";
+import AddProduct from "./pages/admin/AddProduct";
 
 const App = () => {
   return (
@@ -58,6 +59,14 @@ const MainLayout = () => {
           element={
             <ProtectedRoute>
               <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-product"
+          element={
+            <ProtectedRoute>
+              <AddProduct />
             </ProtectedRoute>
           }
         />

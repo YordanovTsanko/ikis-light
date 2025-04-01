@@ -40,7 +40,7 @@ const ImageUploader = ({imageFile, setImageFile}) => {
   }
   if (imageFile) {
     return (
-      <div className="relative flex justify-center items-center px-2 lg:px-0">
+      <div className="relative flex justify-center items-center px-2 lg:px-0 border-2 border-dotted border-primary rounded-lg">
         <img
           src={imageFile.preview}
           alt={imageFile.name}

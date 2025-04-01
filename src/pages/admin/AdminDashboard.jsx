@@ -4,27 +4,16 @@ import Slider from "react-slick";
 import {
   fetchImages,
   searchImage,
-  uploadImage,
 } from "../../features/imagesSlice";
 import ImageUploader from "../../components/main/ImageUploader";
 import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { LuCross, LuSearch } from "react-icons/lu";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
-  const {
-    list,
-    status,
-    statusUpload,
-    error,
-    errorUpload,
-    statusSearch,
-    errorSearch,
-    searchResults,
-  } = useSelector((state) => state.images);
-  const [addProduct, setAddProduct] = useState(false);
+  const { list, status, error, statusSearch, searchResults } =
+    useSelector((state) => state.images);
   const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
@@ -34,15 +23,6 @@ const AdminDashboard = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     dispatch(searchImage(imageFile));
-  };
-
-  const handleUpload = (e) => {
-    e.preventDefault();
-    try {
-      dispatch(uploadImage(imageFile));
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const sliderSettings = {
@@ -115,47 +95,16 @@ const AdminDashboard = () => {
           Интелигентни препоръки, съобразени с вашите нужди
         </h4>
       </div>
-      <div className="flex flex-col w-full items-end mr-12 md:mr-0 md:max-w-[600px] mb-4">
-        <div
-          className="flex text-white items-center justify-center bg-primary rounded-lg px-2 py-1 gap-2 cursor-pointer hover:bg-red-600 hover:scale-105 transition duration-300"
-          onClick={() => setAddProduct((prev) => !prev)}
-        >
-          {addProduct ? (
-            <LuCross className="mt-[4px]" />
-          ) : (
-            <LuSearch className="mt-[4px]" />
-          )}
-          <p className="mb-[1px]">
-            {addProduct ? "Добавяне на продукт" : "Търсене на продукт"}
-          </p>
-        </div>
-      </div>
       <ImageUploader imageFile={imageFile} setImageFile={setImageFile} />
-      {errorUpload && <div className="text-red-500 my-4">{errorUpload}</div>}
-      {statusUpload === "succeeded" && (
-        <div className="text-green-500 my-4">Успешно добавена снимка</div>
-      )}
-      {!addProduct ? (
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleSearch}
-          disabled={statusSearch === "loading"}
-          className="text-white bg-primary mt-3 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
-        >
-          {statusSearch === "loading" ? "Зареждане" : "Търсене"}
-        </motion.button>
-      ) : (
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleUpload}
-          disabled={statusUpload === "loading"}
-          className="text-white bg-primary mt-3 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
-        >
-          {statusUpload === "loading" ? "Зареждане" : "Добавяне"}
-        </motion.button>
-      )}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={handleSearch}
+        disabled={statusSearch === "loading"}
+        className="text-white bg-primary mt-3 px-10 py-2 rounded-lg hover:bg-red-700 transition duration-300"
+      >
+        {statusSearch === "loading" ? "Зареждане" : "Търсене"}
+      </motion.button>
       {statusSearch === "succeeded" && (
         <div className="w-full px-10 mt-4 mb-10 text-center flex flex-col items-center justify-center">
           <h2 className="text-3xl font-bold mb-10 mt-10">

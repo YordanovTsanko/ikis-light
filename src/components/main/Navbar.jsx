@@ -37,6 +37,11 @@ const loggedAdmin = [
     icon: <FaUserPlus className="text-primary text-xl" />,
   },
   {
+    href: "/add-product",
+    label: "Добавяне на продукт",
+    icon: <FaUserPlus className="text-primary text-xl" />,
+  },
+  {
     href: "/",
     label: "Изход",
     icon: <FaSignOutAlt className="text-primary text-xl" />,
