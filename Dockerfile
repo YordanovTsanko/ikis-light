@@ -1,20 +1,19 @@
-# Use the latest LTS version of Node.js
-FROM node:20-alpine
- 
-# Set the working directory inside the container
+FROM node:23-alpine AS build
+
 WORKDIR /app
- 
-# Copy package.json and package-lock.json
+
+# Set default environment variable if not provided during build
+ARG REACT_APP_API_URL=http://localhost:8080
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
 COPY package*.json ./
- 
-# Install dependencies
-RUN npm install
- 
-# Copy the rest of your application files
+RUN npm ci --only=production
 COPY . .
- 
-# Expose the port your app runs on
+RUN npm run build
+
+FROM node:20-alpine3.21 AS runtime 
+RUN npm install -g serve@14
+WORKDIR /app
+COPY --from=build /app/build ./build
 EXPOSE 3000
- 
-# Define the command to run your app
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build", "-l", "3000"]

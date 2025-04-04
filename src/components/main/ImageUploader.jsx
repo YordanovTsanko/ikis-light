@@ -4,7 +4,7 @@ import { ImUpload } from "react-icons/im";
 import { AiOutlineClose } from "react-icons/ai";
 import Loader from "./Loader";
 
-const ImageUploader = ({imageFile, setImageFile}) => {
+const ImageUploader = ({ imageFile, setImageFile }) => {
   const [uploading, setUploading] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -21,13 +21,21 @@ const ImageUploader = ({imageFile, setImageFile}) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: "image/*",
+    accept: {
+        # add more if needed
+      'image/jpeg': ['.jpeg', '.jpg'],
+      'image/png': ['.png'],
+      'image/gif': ['.gif'],
+      'image/webp': ['.webp']
+    },
     multiple: false,
   });
 
   useEffect(() => {
     return () => {
-      if (imageFile) URL.revokeObjectURL(imageFile.preview);
+      if (imageFile?.preview) {
+        URL.revokeObjectURL(imageFile.preview);
+      }
     };
   }, [imageFile]);
 
@@ -38,6 +46,7 @@ const ImageUploader = ({imageFile, setImageFile}) => {
       </div>
     );
   }
+
   if (imageFile) {
     return (
       <div className="relative flex justify-center items-center px-2 lg:px-0 border-2 border-dotted border-primary rounded-lg">

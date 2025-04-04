@@ -19,27 +19,32 @@ export const fetchImages = createAsyncThunk(
 
 // Uploading an image - POST
 export const uploadImage = createAsyncThunk(
-  "images/uploadImage",
-  async (file, { rejectWithValue }) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await api.post("images/add", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      console.log(await response.blob());
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || "Грешка в качването на изображение"
-      );
+    "images/uploadImage",
+    async (file, { rejectWithValue }) => {
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+  
+        const response = await api.post("images/add", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+  
+        const contentType = response.headers['content-type'];
+        if (contentType && contentType.indexOf('application/json') !== -1) {
+          return response.data;
+        } else {
+          const blob = await response.blob();
+          return URL.createObjectURL(blob);
+        }
+      } catch (error) {
+        return rejectWithValue(
+          error.response?.data?.message || "Грешка в качването на изображение"
+        );
+      }
     }
-  }
-);
+  );
 
 // Searching an image - POST
 export const searchImage = createAsyncThunk(
