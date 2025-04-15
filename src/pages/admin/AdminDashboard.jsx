@@ -6,6 +6,7 @@ import ImageUploader from "../../components/main/ImageUploader";
 import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Loader from "../../components/main/Loader";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -54,8 +55,6 @@ const AdminDashboard = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen flex flex-col items-center"
     >
-      {/* ... (keep your existing styles) ... */}
-
       <div className="text-center my-10">
         <h2 className="text-3xl font-bold mb-2">
           Търсене на продукт с AI помощ
@@ -97,11 +96,7 @@ const AdminDashboard = () => {
 
       {status === "loading" && (
         <div className="w-full flex justify-center items-center my-10">
-          <div className="animate-pulse flex space-x-4">
-            {[...Array(3)].map((_, index) => (
-              <div key={index} className="bg-gray-300 h-40 w-40 rounded"></div>
-            ))}
-          </div>
+         <Loader />
         </div>
       )}
 

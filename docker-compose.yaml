@@ -1,0 +1,54 @@
+services:
+  db:
+    container_name: postgres
+    image: postgres:17.4-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  backend:
+    image: ludogoriesoft/ai-google-image-search-poc:1.0.0
+    container_name: backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./gcloud-key.json:/app/gcloud-key.json
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/gcloud-key.json
+      - GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT}
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  frontend:
+    build: .
+#    image: ludogoriesoft/ikis-light-client
+    container_name: ikis-light-client
+    ports:
+      - "3000:3000"  # assuming React app is served via Nginx or similar inside the image
+#    environment:
+#      - REACT_APP_API_URL=http://ai-google-image-search-poc:8080
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  postgres:
+
+networks:
+  app-network:
+    driver: bridge

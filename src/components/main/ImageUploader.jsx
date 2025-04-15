@@ -6,27 +6,32 @@ import Loader from "./Loader";
 
 const ImageUploader = ({ imageFile, setImageFile }) => {
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState(null);
 
   const onDrop = useCallback((acceptedFiles) => {
     const selectedFile = acceptedFiles[0];
     if (selectedFile) {
+      // Clear any previous error and proceed with the file update.
+      setError(null);
       setUploading(true);
       const preview = URL.createObjectURL(selectedFile);
-      setTimeout(() => {
-        setImageFile(Object.assign(selectedFile, { preview }));
-        setUploading(false);
-      }, 2000);
+      // Immediately update the image file state without a timeout.
+      setImageFile(Object.assign(selectedFile, { preview }));
+      setUploading(false);
     }
   }, [setImageFile]);
 
+  const onDropRejected = useCallback((fileRejections) => {
+    // Set an error message when file type is not accepted.
+    setError("Невалиден тип на файл. Моля, качете само PNG или JPG изображения.");
+  }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
+    onDropRejected,
     accept: {
-        # add more if needed
       'image/jpeg': ['.jpeg', '.jpg'],
-      'image/png': ['.png'],
-      'image/gif': ['.gif'],
-      'image/webp': ['.webp']
+      'image/png': ['.png']
     },
     multiple: false,
   });
@@ -71,6 +76,7 @@ const ImageUploader = ({ imageFile, setImageFile }) => {
 
   return (
     <section className="px-2 lg:px-0">
+      {error && <p className="text-red-500 mb-2 text-center">{error}</p>}
       <div
         {...getRootProps({
           className:
@@ -85,8 +91,7 @@ const ImageUploader = ({ imageFile, setImageFile }) => {
           </p>
         ) : (
           <p className="opacity-60 max-w-auto lg:max-w-sm text-center">
-            Плъзнете и пуснете изображения тук или кликнете, за да изберете
-            файл
+            Плъзнете и пуснете изображения тук или кликнете, за да изберете файл
           </p>
         )}
       </div>

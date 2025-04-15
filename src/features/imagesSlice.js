@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../api/api";
-import { b } from "framer-motion/client";
 
-// Fetching simulated images - GET
+// Fetching images - GET
 export const fetchImages = createAsyncThunk(
   "images/fetchImages",
   async (_, { rejectWithValue }) => {
