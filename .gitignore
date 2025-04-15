@@ -6,6 +6,8 @@
 .pnp.js
 .env
 
+gcloud-key.json
+
 # testing
 /coverage
 
